@@ -33,7 +33,23 @@
 							
 						@endforeach
 					</select>
+				</div>
 
+				<div class="form-group">
+					<label for="tag">Select Tags</label><br>
+						@foreach($tags as $tag)
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="tags[]" value="{{ $tag->id }}"
+								@foreach($post->tags as $tagPost)
+									@if($tag->id == $tagPost->id)
+										checked
+									@endif
+								@endforeach
+								>{{ $tag->tag }}
+							</label>
+						</div>
+						@endforeach
 				</div>
 
 				<div class="form-group">

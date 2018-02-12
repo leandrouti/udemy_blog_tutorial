@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Post;
+use App\Tag;
 use Session;
 
 class PostsController extends Controller
@@ -29,13 +30,13 @@ class PostsController extends Controller
     public function create()
     {
         $categories = Category::All();
-
         if($categories->count() == 0){
             Session::flash('info', 'You must have some categories before attempting to create a post.');
             return redirect()->back();
         }
 
-        return view('admin.posts.create')->with('categories', $categories);
+        return view('admin.posts.create')->with('categories', $categories)
+                                         ->with('tags', Tag::all());
     }
 
     /**
@@ -52,7 +53,8 @@ class PostsController extends Controller
             'title' => 'required',
             'featured' => 'required|image',
             'content' => 'required',
-            'category_id' => 'required'
+            'category_id' => 'required',
+            'tags' => 'required'
         ]);
 
         $featured = $request->featured;
@@ -66,6 +68,8 @@ class PostsController extends Controller
             'category_id' => $request->category_id,
             'slug' => str_slug($request->title)
         ]);
+
+        $post->tags()->attach($request->tags);
 
         Session::flash('success', 'You successfully added a post');
         return redirect()->route('posts');
@@ -93,7 +97,8 @@ class PostsController extends Controller
         //
         $categories = Category::All();
         $post = Post::Find($id);
-        return view('admin.posts.edit')->with('post', $post)->with('categories', $categories);
+        return view('admin.posts.edit')->with('post', $post)->with('categories', $categories)
+                                                            ->with('tags', Tag::all());
     }
 
     /**
@@ -126,6 +131,8 @@ class PostsController extends Controller
         $post->category_id = $request->category_id;
         
         $post->save();
+
+        $post->tags()->sync($request->tags);
 
         Session::flash('success', 'Post succesfully Updated');
 
