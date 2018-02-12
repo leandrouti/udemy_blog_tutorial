@@ -83,6 +83,8 @@
                             <li class="list-group-item"><a href="{{ route('post.create') }}">Create New Post</a></li>
                             <li class="list-group-item"><a href="{{ route('posts') }}">View Posts</a></li>
                             <li class="list-group-item"><a href="{{ route('trashed') }}">Trashed Posts</a></li>
+                            <li class="list-group-item"><a href="{{ route('tags.create') }}">Create Tag</a></li>
+                            <li class="list-group-item"><a href="{{ route('tags') }}">View Tag</a></li>
                         </ul>
                     </div>
                 @endif
