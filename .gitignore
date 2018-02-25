@@ -1,8 +1,8 @@
 /node_modules
-/public/hot
-/public/uploads/posts/*.*
-/public/storage
-/storage/*.key
+public/hot
+public/uploads/
+public/storage
+storage/*.key
 /vendor
 /.idea
 /.vagrant

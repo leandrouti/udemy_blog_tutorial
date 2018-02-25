@@ -11,7 +11,7 @@
 |
 */
 Route::get('/test', function(){
-	return App\Post::find(4)->category;
+	return App\Profile::find(1)->user;
 });
 
 
@@ -146,5 +146,51 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 		'as' => 'tags.update'
 	]);
 
+	// *
+	// users section
+	// *
 
+	Route::get('/users', [
+		'uses' => 'UsersController@index',
+		'as' => 'users'
+	]);
+
+	Route::get('/users/delete{id}',[
+		'uses' => 'UsersController@destroy',
+		'as' => 'users.delete'
+	]);
+
+	Route::get('/users/create',[
+		'uses' => 'UsersController@create',
+		'as' => 'user.create'
+	]);
+
+	Route::post('/users/store',[
+		'uses' => 'UsersController@store',
+		'as' => 'user.store'
+	]);
+
+	Route::get('/users/admin{id}',[
+		'uses' => 'UsersController@admin',
+		'as' => 'user.admin'
+	])->middleware('admin');
+
+	Route::get('/users/not_admin{id}',[
+		'uses' => 'UsersController@not_admin',
+		'as' => 'user.not_admin'
+	]);
+
+	// *
+	// edit profile section
+	// *
+
+	Route::get('/users/profile/',[
+		'uses' => 'ProfilesController@index',
+		'as' => 'user.profile'
+	]);
+
+	Route::post('/users/profile/update',[
+		'uses' => 'ProfilesController@update',
+		'as' => 'user.profile.update'
+	]);
 });

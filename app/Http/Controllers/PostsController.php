@@ -35,8 +35,14 @@ class PostsController extends Controller
             return redirect()->back();
         }
 
+        $tags = Tag::All();
+        if($tags->count() == 0){
+            Session::flash('info', 'You must have some tags before attempting to create a post.');
+            return redirect()->back();
+        }
+
         return view('admin.posts.create')->with('categories', $categories)
-                                         ->with('tags', Tag::all());
+                                         ->with('tags', $tags);
     }
 
     /**
