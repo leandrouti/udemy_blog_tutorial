@@ -90,6 +90,7 @@
                             @if(Auth::user()->admin)
                                 <li class="list-group-item"><a href="{{ route('users') }}">View Users</a></li>
                                 <li class="list-group-item"><a href="{{ route('user.create') }}">Create Users</a></li>
+                                <li class="list-group-item"><a href="{{ route('settings') }}">Settings</a></li>                                
                             @endif
                             <li class="list-group-item"><a href="{{ route('user.profile') }}">Update Profile</a></li>
                         </ul>
